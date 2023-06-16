@@ -1,11 +1,9 @@
 package domain
 
-type Word struct {
-	word string
-}
+type Word string
 
-func (word Word) guess(attempt string) Score {
-	score := newScore(word.word)
+func (word Word) Guess(attempt string) Score {
+	score := newScore(word)
 	score.assess(attempt)
 
 	return score

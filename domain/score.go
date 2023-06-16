@@ -3,22 +3,22 @@ package domain
 import "strings"
 
 type Score struct {
-	correctWord string
-	results     []Letter
-	position    int
+	CorrectWord Word
+	Results     []Letter
+	Position    int
 }
 
-func newScore(correctWord string) Score {
+func newScore(correctWord Word) Score {
 	return Score{
-		correctWord: correctWord,
-		results:     make([]Letter, len(correctWord)),
+		CorrectWord: correctWord,
+		Results:     make([]Letter, len(correctWord)),
 	}
 }
 
 func (s Score) assess(attempt string) {
 	for i, character := range attempt {
-		s.position = i
-		s.results[s.position] = s.scoreFor(character)
+		s.Position = i
+		s.Results[s.Position] = s.scoreFor(character)
 	}
 }
 
@@ -33,9 +33,9 @@ func (s Score) scoreFor(character rune) Letter {
 }
 
 func (s Score) isCorrect(attempt rune) bool {
-	return s.correctWord[s.position] == byte(attempt)
+	return s.CorrectWord[s.Position] == byte(attempt)
 }
 
 func (s Score) occursInWord(attempt rune) bool {
-	return strings.ContainsRune(s.correctWord, attempt)
+	return strings.ContainsRune(string(s.CorrectWord), attempt)
 }
