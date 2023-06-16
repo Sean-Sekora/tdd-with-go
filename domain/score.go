@@ -23,11 +23,12 @@ func (s Score) assess(attempt string) {
 }
 
 func (s Score) scoreFor(character rune) Letter {
-	if s.isCorrect(character) {
+	switch {
+	case s.isCorrect(character):
 		return CORRECT
-	} else if s.occursInWord(character) {
+	case s.occursInWord(character):
 		return PART_CORRECT
-	} else {
+	default:
 		return INCORRECT
 	}
 }
