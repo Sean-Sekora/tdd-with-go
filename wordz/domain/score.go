@@ -16,9 +16,9 @@ func newScore(correctWord string) Score {
 }
 
 func (s Score) assess(attempt string) {
-	for _, character := range attempt {
+	for i, character := range attempt {
+		s.position = i
 		s.results[s.position] = s.scoreFor(character)
-		s.position++
 	}
 }
 
