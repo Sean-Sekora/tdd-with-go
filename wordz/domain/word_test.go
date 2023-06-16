@@ -33,8 +33,9 @@ func TestWord_guess(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			word := newWord(test.correctWord)
+			word := Word{word: test.correctWord}
 			score := word.guess(test.attempt)
+
 			if assertScore(score, test.expected) {
 				t.Errorf("expected %v, got %v", test.expected, score.results)
 			}
