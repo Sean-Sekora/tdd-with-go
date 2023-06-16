@@ -6,7 +6,6 @@ import (
 )
 
 func TestWord_guess(t *testing.T) {
-
 	type testCase struct {
 		correctWord string
 		attempt     string
@@ -31,13 +30,15 @@ func TestWord_guess(t *testing.T) {
 		},
 	}
 
-	for name, test := range tests {
+	for name, rtc := range tests {
+		tc := rtc
 		t.Run(name, func(t *testing.T) {
-			word := Word{word: test.correctWord}
-			score := word.guess(test.attempt)
+			t.Parallel()
+			word := Word{word: tc.correctWord}
+			score := word.guess(tc.attempt)
 
-			if assertScore(score, test.expected) {
-				t.Errorf("expected %v, got %v", test.expected, score.results)
+			if assertScore(score, tc.expected) {
+				t.Errorf("expected %v, got %v", tc.expected, score.results)
 			}
 		})
 	}
