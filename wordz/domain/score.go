@@ -8,6 +8,13 @@ type Score struct {
 	position    int
 }
 
+func newScore(correctWord string) Score {
+	return Score{
+		correctWord: correctWord,
+		results:     make([]Letter, len(correctWord)),
+	}
+}
+
 func (s Score) assess(attempt string) {
 	for _, character := range attempt {
 		s.results[s.position] = s.scoreFor(character)
@@ -31,11 +38,4 @@ func (s Score) isCorrect(attempt rune) bool {
 
 func (s Score) occursInWord(attempt rune) bool {
 	return strings.ContainsRune(s.correctWord, attempt)
-}
-
-func newScore(correctWord string) Score {
-	return Score{
-		correctWord: correctWord,
-		results:     make([]Letter, len(correctWord)),
-	}
 }

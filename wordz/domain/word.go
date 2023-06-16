@@ -10,7 +10,7 @@ func newWord(correctWord string) Word {
 
 func (word Word) guess(attempt string) Score {
 	score := newScore(word.word)
-
 	score.assess(attempt)
+
 	return score
 }
