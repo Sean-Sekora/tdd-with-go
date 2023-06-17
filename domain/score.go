@@ -1,6 +1,8 @@
 package domain
 
-import "strings"
+import (
+	"strings"
+)
 
 type Score struct {
 	CorrectWord Word
@@ -8,17 +10,10 @@ type Score struct {
 	Position    int
 }
 
-func newScore(correctWord Word) Score {
-	return Score{
-		CorrectWord: correctWord,
-		Results:     make([]Letter, len(correctWord)),
-	}
-}
-
-func (s Score) assess(attempt string) {
+func (s *Score) assess(attempt string) {
 	for i, character := range attempt {
 		s.Position = i
-		s.Results[s.Position] = s.scoreFor(character)
+		s.Results = append(s.Results, s.scoreFor(character))
 	}
 }
 
@@ -34,7 +29,7 @@ func (s Score) scoreFor(character rune) Letter {
 }
 
 func (s Score) isCorrect(attempt rune) bool {
-	return s.CorrectWord[s.Position] == byte(attempt)
+	return strings.IndexRune(string(s.CorrectWord), attempt) == s.Position
 }
 
 func (s Score) occursInWord(attempt rune) bool {

@@ -15,21 +15,32 @@ func TestWord_guess(t *testing.T) {
 
 	tests := map[string]testCase{
 		"incorrect guess": {
-			correctWord: "cat",
-			attempt:     "dog",
+			correctWord: "Cat",
+			attempt:     "Dog",
 			expected: []domain.Letter{
 				domain.INCORRECT, domain.INCORRECT, domain.INCORRECT,
 			},
 		},
 		"correct guess": {
-			correctWord: "cat",
-			attempt:     "cat",
-			expected:    []domain.Letter{domain.CORRECT, domain.CORRECT, domain.CORRECT},
+			correctWord: "Cat",
+			attempt:     "Cat",
+			expected: []domain.Letter{
+				domain.CORRECT, domain.CORRECT, domain.CORRECT,
+			},
 		},
 		"part correct": {
-			correctWord: "cat",
-			attempt:     "tac",
-			expected:    []domain.Letter{domain.PART_CORRECT, domain.CORRECT, domain.PART_CORRECT},
+			correctWord: "Cat",
+			attempt:     "taC",
+			expected: []domain.Letter{
+				domain.PART_CORRECT, domain.CORRECT, domain.PART_CORRECT,
+			},
+		},
+		"rune test": {
+			correctWord: "日本語",
+			attempt:     "日本語",
+			expected: []domain.Letter{
+				domain.CORRECT, domain.CORRECT, domain.CORRECT,
+			},
 		},
 	}
 
