@@ -17,7 +17,7 @@ func (s *Score) assess(attempt string) {
 	}
 }
 
-func (s Score) scoreFor(character rune) Letter {
+func (s *Score) scoreFor(character rune) Letter {
 	switch {
 	case s.isCorrect(character):
 		return CORRECT
@@ -28,10 +28,10 @@ func (s Score) scoreFor(character rune) Letter {
 	}
 }
 
-func (s Score) isCorrect(attempt rune) bool {
+func (s *Score) isCorrect(attempt rune) bool {
 	return strings.IndexRune(string(s.CorrectWord), attempt) == s.Position
 }
 
-func (s Score) occursInWord(attempt rune) bool {
+func (s *Score) occursInWord(attempt rune) bool {
 	return strings.ContainsRune(string(s.CorrectWord), attempt)
 }
