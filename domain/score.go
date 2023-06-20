@@ -12,8 +12,8 @@ type Score struct {
 
 func (s *Score) assess(attempt string) {
 	for i, character := range attempt {
-		(*s).Position = i
-		(*s).Results = append((*s).Results, (*s).scoreFor(character))
+		s.Position = i
+		s.Results = append(s.Results, s.scoreFor(character))
 	}
 }
 
