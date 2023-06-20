@@ -2,19 +2,21 @@ package shapes
 
 import "fmt"
 
-func drawText(text string) {
-	fmt.Print(text)
+type ConsoleGraphics struct{}
+
+func (c ConsoleGraphics) DrawText(text string) {
+	Print(text)
 }
 
-func drawHorizontalLine(width int) {
+func (c ConsoleGraphics) DrawHorizontalLine(width int) {
 	text := ""
 	for i := 0; i < width; i++ {
 		text += "X"
 	}
 
-	fmt.Print(text)
+	Print(text)
 }
 
-func print(text string) {
-	fmt.Print(text)
+func Print(text string) {
+	fmt.Println(text)
 }

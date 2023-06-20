@@ -1,6 +1,6 @@
 package shapes
 
 type Graphics interface {
-	drawText(text string)
-	drawHorizontalLine(width int)
+	DrawText(text string)
+	DrawHorizontalLine(width int)
 }
