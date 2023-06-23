@@ -17,7 +17,7 @@ func NewConsoleGraphics() ConsoleGraphics {
 	return ConsoleGraphics{writer: os.Stdout}
 }
 
-func (c ConsoleGraphics) WithWriter(w io.Writer) Graphics {
+func (c ConsoleGraphics) WithWriter(w io.Writer) ConsoleGraphics {
 	c.writer = w
 	return c
 }

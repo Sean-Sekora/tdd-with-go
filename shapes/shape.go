@@ -1,5 +1,5 @@
 package shapes
 
-type Shape interface { //nolint:gofumpt
+type Shape interface {
 	Draw(g Graphics)
 }
