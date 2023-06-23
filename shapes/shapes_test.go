@@ -1,17 +1,24 @@
 package shapes
 
-import "testing"
+import (
+	"bytes"
+	"fmt"
+	"reflect"
+	"strings"
+	"testing"
+)
 
-func TestShapes_Draw(t *testing.T) {
-	console := ConsoleGraphics{}
-	shapes := Shapes{Graphics: console}
-	shapes.Add(&TextBox{Text: "Hello from the Shapes SOLID Demo"})
-	shapes.Add(&Rectangle{Height: 1, Width: 32})
-	shapes.Add(&TextBox{Text: "Using the SOLID principles to"})
-	shapes.Add(&TextBox{Text: "create an extensible mini-framework."})
-	shapes.Add(&TextBox{Text: "Draw shapes as ASCII art."})
-	shapes.Add(&TextBox{Text: "Following is a 5 x 3 Rectangle:"})
-	shapes.Add(&Rectangle{Height: 3, Width: 5})
+func TestShapes(t *testing.T) {
+	buffer := new(bytes.Buffer)
+	console := NewConsoleGraphics().WithWriter(buffer)
+	shapes := NewShapes(console).
+		Add(&TextBox{Text: "Hello from the Shapes SOLID Demo"}).
+		Add(&Rectangle{Height: 1, Width: 5})
 
-	shapes.Draw()
+	shapes = shapes.Draw()
+	output := buffer.String()
+	fmt.Print(output)
+	if !strings.Contains(output, "Hello from the Shapes SOLID Demo") || !strings.Contains(output, "XXXXX") {
+		t.Errorf("")
+	}
 }

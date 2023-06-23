@@ -5,12 +5,19 @@ type Shapes struct {
 	Graphics Graphics
 }
 
-func (s *Shapes) Add(shape Shape) {
-	(*s).All = append((*s).All, shape)
+func NewShapes(g Graphics) Shapes {
+	return Shapes{Graphics: g}
 }
 
-func (s *Shapes) Draw() {
+func (s Shapes) Add(shape Shape) Shapes {
+	ns := s
+	ns.All = append(s.All, shape)
+	return ns
+}
+
+func (s Shapes) Draw() Shapes {
 	for _, shape := range s.All {
 		shape.Draw(s.Graphics)
 	}
+	return s
 }

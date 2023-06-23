@@ -1,11 +1,26 @@
 package shapes
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"os"
+)
 
-type ConsoleGraphics struct{}
+type ConsoleGraphics struct {
+	writer io.Writer
+}
+
+func NewConsoleGraphics() ConsoleGraphics {
+	return ConsoleGraphics{writer: os.Stdout}
+}
+
+func (c ConsoleGraphics) WithWriter(w io.Writer) ConsoleGraphics {
+	c.writer = w
+	return c
+}
 
 func (c ConsoleGraphics) DrawText(text string) {
-	Print(text)
+	fmt.Fprintln(c.writer, text)
 }
 
 func (c ConsoleGraphics) DrawHorizontalLine(width int) {
@@ -14,9 +29,9 @@ func (c ConsoleGraphics) DrawHorizontalLine(width int) {
 		text += "X"
 	}
 
-	Print(text)
+	fmt.Fprintln(c.writer, text)
 }
 
-func Print(text string) {
-	fmt.Println(text)
+func (c ConsoleGraphics) ToString() {
+	println(c.writer)
 }
