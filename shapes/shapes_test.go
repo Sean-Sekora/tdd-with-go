@@ -14,11 +14,14 @@ func TestShapes_Draw(t *testing.T) {
 
 	tests := map[string]testCase{
 		"single shape": {
-			shapes:   NewShapes(NewConsoleGraphics().WithWriter(new(bytes.Buffer))).Add(&TextBox{Text: "I'm a string"}),
+			shapes: NewShapes(NewConsoleGraphics().WithWriter(new(bytes.Buffer))).
+				Add(&TextBox{Text: "I'm a string"}),
 			expected: "I'm a string\n",
 		},
 		"multiple shapes": {
-			shapes:   NewShapes(NewConsoleGraphics().WithWriter(new(bytes.Buffer))).Add(&TextBox{Text: "I'm a string"}).Add(&Rectangle{Height: 1, Width: 5}),
+			shapes: NewShapes(NewConsoleGraphics().WithWriter(new(bytes.Buffer))).
+				Add(&TextBox{Text: "I'm a string"}).
+				Add(&Rectangle{Height: 1, Width: 5}),
 			expected: "I'm a string\nXXXXX\n",
 		},
 		"no shapes": {
@@ -45,6 +48,7 @@ func TestShapes_Draw(t *testing.T) {
 
 			// Assert
 			output := buffer.String()
+			console.ToString()
 			assert.Equal(t, tc.expected, output)
 		})
 	}

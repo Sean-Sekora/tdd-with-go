@@ -44,5 +44,5 @@ func (c ConsoleGraphics) DrawHorizontalLine(width int) {
 }
 
 func (c ConsoleGraphics) ToString() {
-	println(c.writer)
+	fmt.Print(c.writer)
 }
