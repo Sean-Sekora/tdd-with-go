@@ -1,7 +1,7 @@
 package shapes
 
 type Shapes struct {
-	All      []Shape
+	Shapes   []Shape
 	Graphics Graphics
 }
 
@@ -11,12 +11,12 @@ func NewShapes(g Graphics) Shapes {
 
 func (s Shapes) Add(shape Shape) Shapes {
 	ns := s
-	ns.All = append(s.All, shape)
+	ns.Shapes = append(s.Shapes, shape)
 	return ns
 }
 
 func (s Shapes) Draw() Shapes {
-	for _, shape := range s.All {
+	for _, shape := range s.Shapes {
 		shape.Draw(s.Graphics)
 	}
 	return s
