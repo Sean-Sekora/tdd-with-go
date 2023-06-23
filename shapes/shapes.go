@@ -11,7 +11,7 @@ func NewShapes(g Graphics) Shapes {
 
 func (s Shapes) Add(shape Shape) Shapes {
 	ns := s
-	ns.Shapes = append(s.Shapes, shape)
+	ns.Shapes = append(ns.Shapes, shape)
 	return ns
 }
 
