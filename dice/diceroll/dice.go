@@ -10,5 +10,5 @@ func NewDice(numberOfSides int, randomNumber RandomNumbers) *Dice {
 }
 
 func (dice Dice) Roll() int {
-	return dice.randomNumber.NextInt(dice.numberOfSides) + 1
+	return dice.randomNumber.NextInt(dice.numberOfSides)
 }
