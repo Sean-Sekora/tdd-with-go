@@ -1,4 +1,4 @@
-package zap_adapter
+package zapadapter
 
 import (
 	"fmt"

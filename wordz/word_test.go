@@ -1,8 +1,8 @@
-package domain_test
+package wordz_test
 
 import (
 	"reflect"
-	"tdd-with-go/domain"
+	"tdd_with_go/wordz"
 	"testing"
 )
 
@@ -10,36 +10,36 @@ func TestWord_guess(t *testing.T) {
 	type testCase struct {
 		correctWord string
 		attempt     string
-		expected    []domain.Letter
+		expected    []wordz.Letter
 	}
 
 	tests := map[string]testCase{
 		"incorrect guess": {
 			correctWord: "Cat",
 			attempt:     "Dog",
-			expected: []domain.Letter{
-				domain.INCORRECT, domain.INCORRECT, domain.INCORRECT,
+			expected: []wordz.Letter{
+				wordz.INCORRECT, wordz.INCORRECT, wordz.INCORRECT,
 			},
 		},
 		"correct guess": {
 			correctWord: "Cat",
 			attempt:     "Cat",
-			expected: []domain.Letter{
-				domain.CORRECT, domain.CORRECT, domain.CORRECT,
+			expected: []wordz.Letter{
+				wordz.CORRECT, wordz.CORRECT, wordz.CORRECT,
 			},
 		},
 		"part correct": {
 			correctWord: "Cat",
 			attempt:     "taC",
-			expected: []domain.Letter{
-				domain.PART_CORRECT, domain.CORRECT, domain.PART_CORRECT,
+			expected: []wordz.Letter{
+				wordz.PART_CORRECT, wordz.CORRECT, wordz.PART_CORRECT,
 			},
 		},
 		"rune test": {
 			correctWord: "日本語",
 			attempt:     "日本語",
-			expected: []domain.Letter{
-				domain.CORRECT, domain.CORRECT, domain.CORRECT,
+			expected: []wordz.Letter{
+				wordz.CORRECT, wordz.CORRECT, wordz.CORRECT,
 			},
 		},
 	}
@@ -48,7 +48,7 @@ func TestWord_guess(t *testing.T) {
 		tc := rtc
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
-			word := domain.Word(tc.correctWord)
+			word := wordz.Word(tc.correctWord)
 			score := word.Guess(tc.attempt)
 
 			if assertScore(score, tc.expected) {
@@ -58,6 +58,6 @@ func TestWord_guess(t *testing.T) {
 	}
 }
 
-func assertScore(score domain.Score, expected []domain.Letter) bool {
+func assertScore(score wordz.Score, expected []wordz.Letter) bool {
 	return !reflect.DeepEqual(score.Results, expected)
 }
