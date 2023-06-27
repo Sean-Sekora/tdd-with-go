@@ -2,6 +2,7 @@ package shapes
 
 import (
 	"fmt"
+	"github.com/Sean-Sekora/tdd-with-go/zap_adapter"
 	"go.uber.org/zap"
 	"io"
 	"os"
@@ -11,7 +12,7 @@ type ConsoleGraphics struct {
 	writer io.Writer
 }
 
-var logger = NewZapAdapter()
+var logger = zap_adapter.NewZapAdapter()
 
 func NewConsoleGraphics() ConsoleGraphics {
 	return ConsoleGraphics{writer: os.Stdout}

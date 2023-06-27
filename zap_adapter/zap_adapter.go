@@ -1,4 +1,4 @@
-package shapes
+package zap_adapter
 
 import (
 	"fmt"
