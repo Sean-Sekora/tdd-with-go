@@ -31,13 +31,14 @@ func TestSendMail(t *testing.T) {
 
 	mail := Mail{server: mockedMailServer}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, rt := range tests {
+		test := rt
+		t.Run(test.name, func(t *testing.T) {
 			// Act
-			mail.SendMail(tt.args.recipient, tt.args.subject, tt.args.body)
+			mail.SendMail(test.args.recipient, test.args.subject, test.args.body)
 
 			// Assert
-			mockedMailServer.AssertCalled(t, "Send", tt.args.recipient, tt.args.subject, tt.args.body)
+			mockedMailServer.AssertCalled(t, "Send", test.args.recipient, test.args.subject, test.args.body)
 			mockedMailServer.AssertNumberOfCalls(t, "Send", 1)
 		})
 	}

@@ -26,11 +26,12 @@ func TestDice_Roll(t *testing.T) {
 			want: 5,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, rt := range tests {
+		test := rt
+		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
-			dice := diceroll.NewDice(tt.fields.numberOfSides, tt.fields.randomNumber)
-			assert.Equal(t, tt.want, dice.Roll())
+			dice := diceroll.NewDice(test.fields.numberOfSides, test.fields.randomNumber)
+			assert.Equal(t, test.want, dice.Roll())
 		})
 	}
 }
