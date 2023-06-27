@@ -21,7 +21,6 @@
         <option value="revive" />
         <option value="stylecheck" />
         <option value="whitespace" />
-        <option value="paralleltest" />
         <option value="gosimple" />
         <option value="goprintffuncname" />
         <option value="prealloc" />
