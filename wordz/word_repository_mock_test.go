@@ -32,7 +32,6 @@ func TestWordRepositoryMock_FetchWordByNumber(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
 			if got := mockedWordRepository.FetchWordByNumber(tt.args.arg0); got != tt.want {
 				t.Errorf("FetchWordByNumber() = %v, want %v", got, tt.want)
 			}
