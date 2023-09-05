@@ -18,6 +18,10 @@ func (s *Score) assess(attempt string) {
 }
 
 func (s *Score) allCorrect() bool {
+	if len(s.Results) != len(s.CorrectWord) {
+		return false
+	}
+
 	for _, result := range s.Results {
 		if result != CORRECT {
 			return false
