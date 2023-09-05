@@ -17,6 +17,16 @@ func (s *Score) assess(attempt string) {
 	}
 }
 
+func (s *Score) allCorrect() bool {
+	for _, result := range s.Results {
+		if result != CORRECT {
+			return false
+		}
+	}
+
+	return true
+}
+
 func (s *Score) scoreFor(character rune) Letter {
 	switch {
 	case (*s).isCorrect(character):
