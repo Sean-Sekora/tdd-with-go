@@ -26,12 +26,12 @@ func TestGame_Attempt(t *testing.T) {
 			name: "Happy Path",
 			fields: fields{
 				player:        Player{},
-				targetWord:    "ARISE",
+				targetWord:    "BINGO",
 				attemptNumber: 0,
 				isGameOver:    false,
 			},
 			args: args{
-				guess: "ARISE",
+				guess: "BINGO",
 			},
 			want: []Letter{CORRECT, CORRECT, CORRECT, CORRECT, CORRECT},
 		},
@@ -39,12 +39,12 @@ func TestGame_Attempt(t *testing.T) {
 			name: "Partial Match",
 			fields: fields{
 				player:        Player{},
-				targetWord:    "ARISE",
+				targetWord:    "BINGO",
 				attemptNumber: 0,
 				isGameOver:    false,
 			},
 			args: args{
-				guess: "ARI",
+				guess: "BIN",
 			},
 			want: []Letter{CORRECT, CORRECT, CORRECT},
 		},
@@ -81,16 +81,16 @@ func TestGame_IsGameOver(t *testing.T) {
 			name: "Happy Path",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"ARISE"},
+			guesses: []string{"BINGO"},
 			want:    true,
 		},
 		{
 			name: "Partial Match 1",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
 			guesses: []string{"ARI"},
 			want:    false,
@@ -99,27 +99,45 @@ func TestGame_IsGameOver(t *testing.T) {
 			name: "Partial Match 2",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"ARISEE"},
+			guesses: []string{"BINGOE"},
 			want:    false,
 		},
 		{
 			name: "Max Guesses",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISE"},
+			guesses: []string{"A", "AR", "ARI", "ARIS", "BINGO"},
+			want:    true,
+		},
+		{
+			name: "Max Wrong Guesses",
+			fields: fields{
+				player:     Player{},
+				targetWord: "BINGO",
+			},
+			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISA"},
 			want:    true,
 		},
 		{
 			name: "Too Many Guesses",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISA"},
+			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISA", "BINGO"},
+			want:    true,
+		},
+		{
+			name: "Guess After Game Over",
+			fields: fields{
+				player:     Player{},
+				targetWord: "BINGO",
+			},
+			guesses: []string{"BING", "BINGO", "WAS HIS NAMEO"},
 			want:    true,
 		},
 	}
@@ -139,7 +157,7 @@ func TestGame_IsGameOver(t *testing.T) {
 	}
 }
 
-func TestGame_GetAttemptNumber(t *testing.T) {
+func TestGame_UpdateAttemptNumber(t *testing.T) {
 	type fields struct {
 		player        Player
 		targetWord    Word
@@ -157,7 +175,7 @@ func TestGame_GetAttemptNumber(t *testing.T) {
 			name: "1 Guess",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
 			guesses: []string{"A"},
 			want:    1,
@@ -166,20 +184,30 @@ func TestGame_GetAttemptNumber(t *testing.T) {
 			name: "Multiple Guesses",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISE"},
+			guesses: []string{"A", "AR", "ARI", "ARIS", "BINGO"},
 			want:    5,
 		},
 		{
 			name: "Too Many Guesses",
 			fields: fields{
 				player:     Player{},
-				targetWord: "ARISE",
+				targetWord: "BINGO",
 			},
-			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISA", "ARISE"},
+			guesses: []string{"A", "AR", "ARI", "ARIS", "ARISA", "BINGO"},
 			want:    5,
-			error:   GameOverError{},
+			error:   &GameOverError{},
+		},
+		{
+			name: "Guess After Game Over",
+			fields: fields{
+				player:     Player{},
+				targetWord: "BINGO",
+			},
+			guesses: []string{"BING", "BINGO", "WAS HIS NAMEO"},
+			want:    2,
+			error:   &GameOverError{},
 		},
 	}
 	for _, tt := range tests {

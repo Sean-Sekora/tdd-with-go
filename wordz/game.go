@@ -12,19 +12,22 @@ type Game struct {
 type GameOverError struct {
 }
 
-func (g GameOverError) Error() string {
-	panic("Game Over Error")
+func (g *GameOverError) Error() string {
+	return "game over"
 }
 
 func (g *Game) Attempt(guess string) (Score, error) {
-	if g.isGameOver {
-		return Score{}, GameOverError{}
+	if g.IsGameOver() {
+		return Score{}, &GameOverError{}
 	}
 	g.trackNumberOfAttempts()
+
 	word := g.targetWord
 	score := word.Guess(guess)
 	if score.allCorrect() {
 		g.endGame()
+	} else if g.IsGameOver() {
+		return Score{}, &GameOverError{}
 	}
 
 	return score, nil
@@ -35,15 +38,15 @@ func (g *Game) GetAttemptNumber() int {
 }
 
 func (g *Game) IsGameOver() bool {
+	if g.attemptNumber >= MaximumNumberAllowedGuesses {
+		g.endGame()
+	}
 	return g.isGameOver
 }
 
 func (g *Game) trackNumberOfAttempts() {
+	g.IsGameOver()
 	g.attemptNumber++
-
-	if g.attemptNumber >= MaximumNumberAllowedGuesses {
-		g.endGame()
-	}
 }
 
 func (g *Game) endGame() {
